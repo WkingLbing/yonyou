@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.mapper.UserMapper">
+	<!--通过id查用户信息-->
+	<select id="getByUserId" resultType="UserPO">
+		select * from user where user_id=#{userId} and is_delete=0
+	</select>
+	<!--查所有用户-->
+	<select id="get" resultType="UserPO">
+		select * from user where is_delete=0
+	</select>
+	<!--通过账号查用户信息-->
+	<select id="getByAccount" resultType="UserPO">
+		select * from user where account=#{account} and is_delete=0
+	</select>
+	
+	<!--通过账号查id-->
+	<select id="getUserIdByAccount" resultType="Integer">
+		select user_id from user where account=#{account} and is_delete=0
+	</select>
+	<!--增加用户信息-->
+	<insert id="add" parameterType="UserPO">
+		insert into user
+		(user_name,account,password,sex,position_id,create_time) values
+		(#{username},#{account},#{password},#{sex},#{positionId},#{createTime})
+	</insert>
+	<!--根据id删除用户信息 -->
+	<delete id="delete" parameterType="UserPO">
+		update user set is_delete=1,update_by=#{updateBy},update_time=#{updateTime}
+		where user_id = #{userId} and is_delete=0
+	</delete>
+	
+	<!--更改用户密码-->
+	
+	<update id="updatePassword" parameterType="UserPO">
+			update user set password=#{password},update_by=#{updateBy},update_time=#{updateTime}
+			where user_id = #{userId} and is_delete=0
+	</update>
+	<!--更改用户信息-->
+	<update id="update" parameterType="UserPO">
+			update user set user_name=#{username},sex=#{sex},position_id=#{positionId},update_by=#{updateBy},update_time=#{updateTime}
+			where user_id = #{userId} and is_delete=0
+	</update>
+	
+	
+</mapper>
+	

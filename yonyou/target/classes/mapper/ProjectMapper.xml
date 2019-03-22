@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.mapper.ProjectMapper">
+
+	<select id="get" resultType="ProjectPO">
+		select * from project where
+		project_id =#{projectId} and is_delete=0
+	</select>
+	
+	<select id="getUserProjectPOByProjectId"
+		resultType="UserProjectRelationPO">
+		select * from 
+		user_project_relation where project_id=#{projectId} and is_delete=0
+	</select>
+
+	<select id="getUserProjectPOByUserId"
+	 	resultType="UserProjectRelationPO">
+		select * from
+		user_project_relation where user_id=#{userId} and is_delete=0
+	</select>
+	
+	<insert id="add">
+		insert into project(project_name,project_manager,`desc`,`begin_time`,`end_time`,create_time)
+		values(#{projectName},#{projectManager},#{desc},#{beginTime},#{endTime},#{createTime})
+	</insert>
+	
+	<delete id="delete">
+		update  project set is_delete=1 where project_id=#{projectId}
+	</delete>
+	
+	<update id="update">
+		update project set project_name=#{projectName},project_manager=#{projectManager},`begin_time`=#{beginTime},`desc`=#{desc},
+		`end_time`=#{endTime},update_time=#{updateTime},update_by=#{updateBy} where project_id=#{projectId} and is_delete=0
+	</update>
+	
+	<update id="deleteProject">
+		update project set update_time=#{updateTime},update_by=#{updateBy},is_delete=1 where project_id=#{projectId}
+	</update>
+	
+	<select id="getAll" resultType="projectPO">
+		select * from project where is_delete=0
+	</select>
+	<select id="getByProjectName" resultType="projectPO">
+		select * from project where is_delete=0 and project_name=#{projectName}
+	</select>
+	<select id="getByProjectId" resultType="projectPO">
+		select * from project where is_delete=0 and project_id=#{projectId}
+	</select>
+</mapper>
+
+
+
+
+

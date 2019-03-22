@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.mapper.UserProjectRelationMapper">
+
+	<insert id="add">
+		insert into user_project_relation(project_id,user_id,create_time,create_by)
+		values(#{projectId},#{userId},#{createTime},#{createBy})
+	</insert>
+	
+	<!-- <select id="getByUserProId" resultType="UserProjectRelationPO">
+		select * from user_project_relation 
+		where user_id=#{userId} and project_id=#{projectId} and is_delete=0
+	</select> -->
+	
+	<select id="getByUserProId" resultType="UserProjectRelationPO">
+		select * from user_project_relation 
+		where user_id=#{userId} and project_id=#{projectId} and is_delete=0
+	</select>
+	
+	<update id="deleteById">
+		update user_project_relation set update_time=#{updateTime},update_by=#{updateBy},is_delete=1
+		where id=#{id} and is_delete=0
+	</update>
+	
+	<update id="deleteUserProject">
+		update user_project_relation set update_time=#{updateTime},update_by=#{updateBy},is_delete=1
+		where project_id=#{projectId} and is_delete=0
+	</update>
+	
+</mapper>
+	
