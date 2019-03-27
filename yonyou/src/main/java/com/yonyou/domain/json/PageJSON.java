@@ -1,5 +1,5 @@
 package com.yonyou.domain.json;
-
+//分页
 public class PageJSON {
 	
 	protected int pageNum;//当前页
